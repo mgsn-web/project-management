@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Выпуск 02 — Как определить и сформулировать цель проекта</title>
+<meta name="description" content="Цель фиксирует желаемый итог, показатели его измеряют. Шесть шагов, конструктор формулировки, восемь разборов и тест.">
+<meta property="og:title" content="Цель проекта: что должно быть сделано">
+<meta property="og:description" content="Выпуск 02. Цель, показатели достижения и результат: шесть шагов, конструктор и тест из семи вопросов.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400..800&family=Manrope:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --ink:#14263F;
+  --ink-soft:#4E6580;
+  --sun:#F5C542;
+  --sun-soft:#FFF2CD;
+  --coral:#E4574C;
+  --aqua:#12796B;
+  --violet:#33489E;
+  --paper:#FFFFFF;
+  --line:rgba(20,38,63,.16);
+  --shadow:3px 3px 0 rgba(20,38,63,.10), 0 10px 22px rgba(20,38,63,.10);
+  --shadow-lg:5px 5px 0 rgba(20,38,63,.10), 0 16px 32px rgba(20,38,63,.12);
+  --display:"Literata",Georgia,"Times New Roman",serif;
+  --body:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"JetBrains Mono","SFMono-Regular",Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body);
+  color:var(--ink);
+  background:#BEE5DC;
+  background-image:
+    radial-gradient(70rem 45rem at 6% -12%, rgba(255,255,255,.8), transparent 62%),
+    radial-gradient(52rem 38rem at 100% 6%, rgba(245,197,66,.32), transparent 60%),
+    radial-gradient(60rem 45rem at 78% 106%, rgba(18,121,107,.22), transparent 62%),
+    linear-gradient(165deg, #E2F4EE 0%, #B9E3DC 50%, #A2D6E6 100%);
+  background-attachment:fixed;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:4rem;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(rgba(20,38,63,.13) 1px, transparent 1px);
+  background-size:20px 20px;opacity:.4;
+}
+.wrap{position:relative;z-index:1;width:min(1080px,92vw);margin:0 auto}
+
+/* ---------- типографика ---------- */
+h1,h2,h3{font-family:var(--display);line-height:1.14;letter-spacing:-.012em}
+h1,h2,h3,.step__q,.ex__task{text-wrap:balance}
+p,li,.step__how,.ex__why,.ex__fix,.gt-cell,.trap p{text-wrap:pretty}
+h1{font-size:clamp(2.35rem,6vw,4.1rem);font-weight:700}
+h2{font-size:clamp(1.6rem,3.6vw,2.4rem);font-weight:700}
+h3{font-size:clamp(1.08rem,2vw,1.32rem);font-weight:600}
+p{font-size:clamp(1rem,1.25vw,1.08rem)}
+.eyebrow{
+  font-family:var(--mono);font-size:.76rem;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--ink);
+  display:inline-flex;align-items:center;gap:.5rem;
+}
+.eyebrow::before{content:"";width:26px;height:3px;background:var(--ink);display:block}
+
+/* ---------- шапка ---------- */
+.topbar{
+  position:sticky;top:0;z-index:20;
+  background:var(--ink);color:var(--sun);
+  display:flex;justify-content:center;
+}
+.topbar__in{
+  width:min(1080px,92vw);display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;padding:.7rem 0;font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;
+}
+.topbar__badge{background:var(--coral);color:#fff;padding:.25rem .6rem;border-radius:99px;font-weight:700}
+.topbar__time{opacity:.75}
+
+/* ---------- герой ---------- */
+.hero{padding:clamp(2.5rem,7vw,4.5rem) 0 1rem}
+.hero__lead{max-width:46ch;margin-top:1.1rem;font-size:clamp(1.05rem,1.6vw,1.22rem);font-weight:500}
+.hero h1{margin-top:1rem}
+.hero h1 em{font-style:normal;background:var(--ink);color:var(--sun);padding:0 .25em;border-radius:6px;display:inline-block}
+.cheat{
+  margin-top:1.6rem;display:inline-block;background:var(--paper);border:2px solid var(--ink);
+  border-radius:16px;box-shadow:var(--shadow);padding:1rem 1.2rem;max-width:60ch;font-weight:700;
+}
+.cheat span{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;display:block;color:var(--ink-soft);margin-bottom:.35rem}
+.cheat span.cheat__life{display:block;margin:.7rem 0 0;padding-top:.7rem;border-top:2px dashed var(--line);font-family:var(--body);font-weight:500;font-size:.95rem;line-height:1.5;letter-spacing:normal;text-transform:none;color:var(--ink-soft)}
+
+/* ---------- дорожки (сигнатурная анимация) ---------- */
+.tracks{
+  margin-top:2.4rem;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;
+}
+.track{
+  background:var(--paper);border:2px solid var(--ink);border-radius:20px;
+  box-shadow:var(--shadow-lg);padding:1.4rem 1.3rem 1.2rem;position:relative;overflow:hidden;
+}
+.track__tag{font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  padding:.25rem .6rem;border-radius:99px;color:#fff;display:inline-block}
+.track--p .track__tag{background:var(--coral)}
+.track--c .track__tag{background:var(--aqua)}
+.track__note{margin-top:.9rem;font-weight:700;font-size:.98rem}
+.track__sub{color:var(--ink-soft);font-size:.9rem;margin-top:.2rem}
+
+/* ---------- секции ---------- */
+section{padding:clamp(2.6rem,6vw,4rem) 0 0}
+.sec-head{max-width:60ch}
+.sec-head h2{margin-top:.8rem}
+.sec-head p{margin-top:.7rem;font-weight:500}
+
+/* ---------- определения ---------- */
+.defs{margin-top:1.8rem;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.def{background:var(--paper);border:2px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);padding:1.4rem}
+.def--p{border-top:14px solid var(--coral)}
+.def--c{border-top:14px solid var(--aqua)}
+.def h3{margin-bottom:.5rem}
+.def__formula{font-family:var(--mono);font-size:.85rem;background:var(--ink);color:var(--sun);padding:.6rem .75rem;border-radius:10px;margin-top:.9rem;line-height:1.5}
+.def ul{margin-top:.9rem;padding-left:1.1rem}
+.def li{margin-bottom:.35rem;font-size:.97rem}
+
+/* ---------- таблица различий ---------- */
+.grid-table{margin-top:1.8rem;border:2px solid var(--ink);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg);background:var(--paper)}
+.gt-row{display:grid;grid-template-columns:.85fr 1.1fr 1.1fr;border-bottom:1px solid var(--line)}
+.gt-row:last-child{border-bottom:0}
+.gt-row--head{background:var(--ink);color:var(--paper);border-bottom:0}
+.gt-cell{padding:.85rem 1rem;font-size:.96rem;border-right:1px solid var(--line)}
+.gt-cell:last-child{border-right:0}
+.gt-row--head .gt-cell{font-family:var(--mono);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;border-right-color:rgba(255,255,255,.22)}
+.gt-cell--k{font-weight:800;background:rgba(245,197,66,.26)}
+.gt-cell--p{background:rgba(228,87,76,.09)}
+.gt-cell--c{background:rgba(18,121,107,.09)}
+.gt-lab{display:none;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.15rem}
+
+/* ---------- 5 шагов ---------- */
+.steps{margin-top:1.8rem;display:grid;gap:1rem}
+.step{
+  background:var(--paper);border:2px solid var(--ink);border-radius:20px;box-shadow:var(--shadow);
+  padding:1.3rem 1.3rem 1.1rem;display:grid;grid-template-columns:auto 1fr;gap:1.1rem;align-items:start;
+  transition:transform .18s ease;
+}
+.step.is-done{transform:translate(2px,2px);box-shadow:1px 1px 0 rgba(20,38,63,.10), 0 6px 14px rgba(20,38,63,.08)}
+.step__num{
+  font-family:var(--display);font-weight:700;font-size:1.5rem;line-height:1;
+  width:52px;height:52px;display:grid;place-items:center;border:2px solid var(--ink);border-radius:14px;background:var(--sun);
+}
+.step.is-yes .step__num{background:var(--coral);color:#fff}
+.step.is-no .step__num{background:var(--aqua);color:#fff}
+.step__q{font-weight:800;margin-top:.35rem;font-size:1.05rem}
+.step__how{margin-top:.5rem;color:var(--ink-soft);font-size:.96rem}
+.step__how b{color:var(--ink)}
+.step__ex{margin-top:.75rem;background:var(--sun-soft);border-left:4px solid var(--sun);padding:.6rem .85rem;border-radius:0 10px 10px 0;font-size:.93rem;line-height:1.5;color:var(--ink)}
+.step__ex b{font-weight:800}
+.step__ctrl{margin-top:.85rem;display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+.btn{
+  font-family:var(--body);font-weight:800;font-size:.92rem;cursor:pointer;
+  border:2px solid var(--ink);border-radius:12px;padding:.5rem .95rem;background:#fff;color:var(--ink);
+  transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+  box-shadow:2px 2px 0 rgba(20,38,63,.28);
+}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(20,38,63,.28)}
+.btn:active{transform:translate(2px,2px);box-shadow:0 0 0 rgba(20,38,63,0)}
+.btn:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
+.btn--yes.is-on{background:var(--coral);color:#fff}
+.btn--no.is-on{background:var(--aqua);color:#fff}
+.step__hint{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--ink-soft)}
+
+.verdict{
+  margin-top:1.2rem;border:2px solid var(--ink);border-radius:20px;padding:1.4rem;
+  background:var(--ink);color:var(--paper);box-shadow:var(--shadow-lg);
+}
+.verdict__score{font-family:var(--mono);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sun)}
+.verdict h3{margin:.5rem 0 .5rem;color:#fff;font-size:1.5rem}
+.verdict p{font-size:1rem}
+.verdict .btn{margin-top:1rem;background:var(--sun)}
+.progressline{display:flex;gap:.4rem;margin-top:1.1rem}
+.progressline i{flex:1;height:8px;border:2px solid var(--ink);border-radius:99px;background:transparent}
+.progressline i.on{background:var(--ink)}
+
+/* ---------- гибрид ---------- */
+.split{
+  margin-top:1.6rem;background:var(--violet);color:#fff;border:2px solid var(--ink);border-radius:20px;
+  box-shadow:var(--shadow-lg);padding:1.5rem;
+}
+.split h3{color:#fff}
+/* ---------- примеры ---------- */
+.ex-grid{margin-top:1.8rem;display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.ex{
+  text-align:left;cursor:pointer;font-family:var(--body);
+  background:var(--paper);border:2px solid var(--ink);border-radius:18px;box-shadow:var(--shadow);
+  padding:1.1rem 1.15rem;transition:transform .15s ease, box-shadow .15s ease;
+}
+.ex:hover{transform:translate(-2px,-2px);box-shadow:var(--shadow-lg)}
+.ex:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
+.ex__task{font-weight:800;font-size:1.02rem;display:block}
+.ex__cta{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-top:.6rem;display:block}
+.ex__ans{display:none;margin-top:.75rem;border-top:1px dashed var(--line);padding-top:.7rem}
+.ex.is-open .ex__ans{display:block}
+.ex.is-open .ex__cta{display:none}
+.ex__why{margin-top:.5rem;font-size:.94rem;color:var(--ink-soft)}
+
+/* ---------- ошибки ---------- */
+.traps{margin-top:1.8rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.trap{background:var(--ink);color:var(--paper);border:2px solid var(--ink);border-radius:18px;padding:1.2rem;box-shadow:var(--shadow)}
+.trap h3{color:var(--sun);font-size:1.05rem}
+.trap p{margin-top:.5rem;font-size:.95rem;opacity:.92}
+.trap__fix{margin-top:.7rem;font-size:.93rem;background:rgba(245,197,66,.16);border-left:4px solid var(--sun);padding:.5rem .7rem;border-radius:0 10px 10px 0}
+.trap__fix b{color:var(--sun)}
+
+/* ---------- тест ---------- */
+.quiz{
+  margin-top:1.8rem;background:var(--paper);border:2px solid var(--ink);border-radius:24px;
+  box-shadow:var(--shadow-lg);padding:clamp(1.3rem,3vw,2rem);
+}
+.quiz__top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.quiz__count{font-family:var(--mono);font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+.quiz__dots{display:flex;gap:.35rem}
+.quiz__dots i{width:14px;height:14px;border:2px solid var(--ink);border-radius:50%}
+.quiz__dots i.ok{background:var(--aqua)}
+.quiz__dots i.bad{background:var(--coral)}
+.quiz__q{font-family:var(--display);font-weight:600;font-size:clamp(1.1rem,2.2vw,1.45rem);margin-top:1.1rem;line-height:1.25}
+.quiz__opts{margin-top:1.1rem;display:grid;gap:.6rem}
+.opt{
+  text-align:left;font-family:var(--body);font-size:1rem;font-weight:600;cursor:pointer;
+  background:#fff;border:2px solid var(--ink);border-radius:14px;padding:.8rem .95rem;
+  display:flex;gap:.75rem;align-items:flex-start;transition:transform .12s ease,background .12s ease;
+}
+.opt:hover:not(:disabled){transform:translate(-2px,-2px)}
+.opt:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
+.opt:disabled{cursor:default}
+.opt__k{font-family:var(--mono);font-weight:700;background:var(--sun);border:2px solid var(--ink);border-radius:7px;width:26px;height:26px;display:grid;place-items:center;flex:0 0 auto;font-size:.8rem}
+.opt.correct{background:var(--aqua);color:#fff}
+.opt.correct .opt__k{background:#fff}
+.opt.wrong{background:var(--coral);color:#fff}
+.opt.wrong .opt__k{background:#fff}
+.quiz__fb{display:none;margin-top:1rem;border:2px solid var(--ink);border-radius:14px;padding:.9rem 1rem;background:var(--sun-soft);font-size:.97rem}
+.quiz__fb.show{display:block}
+.quiz__fb b{font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;font-size:.74rem;display:block;margin-bottom:.3rem}
+.quiz__nav{margin-top:1.1rem;display:flex;gap:.6rem;flex-wrap:wrap}
+.quiz__result{display:none}
+.quiz__result.show{display:block}
+.result__score{font-family:var(--display);font-weight:700;font-size:clamp(2.6rem,9vw,4.5rem);line-height:1}
+.result__label{font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase;font-size:.76rem;color:var(--ink-soft)}
+.result__msg{margin-top:.8rem;font-size:1.05rem;font-weight:600;max-width:52ch}
+
+/* ---------- финал ---------- */
+.outro{
+  margin-top:clamp(2.6rem,6vw,4rem);background:var(--ink);color:var(--paper);
+  border-radius:24px;padding:clamp(1.5rem,4vw,2.4rem);border:2px solid var(--ink);box-shadow:var(--shadow-lg);
+}
+.outro h2{color:#fff}
+.outro__rule{margin-top:1rem;font-family:var(--display);font-size:clamp(1.1rem,2.4vw,1.5rem);font-weight:600;color:var(--sun);line-height:1.3}
+.outro__next{margin-top:1.4rem;font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;opacity:.7}
+
+/* ---------- герой: результат и цель ---------- */
+.sheet{position:relative;height:96px;margin-top:1.1rem;display:flex;align-items:center;justify-content:center}
+.sheet__paper{width:104px;height:80px;background:#fff;border:3px solid var(--ink);border-radius:8px;
+  display:flex;flex-direction:column;justify-content:center;gap:9px;padding:0 14px}
+.sheet__paper i{display:block;height:5px;border-radius:99px;background:var(--ink-soft);opacity:.5}
+.sheet__paper i:nth-child(2){width:70%}
+.sheet__paper i:nth-child(3){width:85%}
+.sheet__stamp{position:absolute;right:26%;bottom:6px;width:40px;height:40px;border-radius:50%;
+  background:var(--coral);border:3px solid var(--ink);display:grid;place-items:center;color:#fff;
+  font-weight:800;font-size:1.2rem;animation:stampin 4.4s ease-in-out infinite}
+@keyframes stampin{0%,45%{opacity:0;transform:scale(.4) rotate(-18deg)}
+  60%,88%{opacity:1;transform:scale(1) rotate(-8deg)}100%{opacity:0;transform:scale(1) rotate(-8deg)}}
+
+.meter{height:96px;margin-top:1.1rem;display:flex;flex-direction:column;justify-content:center;gap:.6rem}
+.meter__track{height:26px;border:3px solid var(--ink);border-radius:99px;background:#fff;overflow:hidden}
+.meter__fill{height:100%;background:var(--aqua);animation:shrink 4.4s cubic-bezier(.6,0,.35,1) infinite}
+@keyframes shrink{0%,12%{width:6%}52%,88%{width:96%}100%{width:6%}}
+.meter__nums{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.74rem;
+  letter-spacing:.08em;color:var(--ink-soft)}
+.meter__nums b{color:var(--ink)}
+
+/* ---------- три определения ---------- */
+.defs--3{grid-template-columns:repeat(3,1fr)}
+.def--t{border-top:14px solid var(--violet)}
+
+/* ---------- формула ---------- */
+.formula{margin-top:1.8rem;background:var(--violet);color:#fff;border:2px solid var(--ink);
+  border-radius:20px;box-shadow:var(--shadow-lg);padding:1.5rem}
+.formula h3{color:#fff}
+.formula__line{margin-top:1rem;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.formula__chip{background:rgba(255,255,255,.16);border:2px dashed rgba(255,255,255,.6);
+  border-radius:12px;padding:.5rem .8rem;font-weight:700;font-size:.95rem}
+.formula__plus{font-family:var(--mono);font-weight:700;opacity:.8}
+.formula__ex{margin-top:1.1rem;background:rgba(255,255,255,.12);border-radius:14px;padding:.9rem 1rem;font-size:.98rem}
+.formula__ex b{display:block;font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;
+  text-transform:uppercase;margin-bottom:.3rem;opacity:.85}
+
+/* ---------- конструктор ---------- */
+.builder{margin-top:1.8rem;background:var(--paper);border:2px solid var(--ink);border-radius:20px;
+  box-shadow:var(--shadow-lg);padding:1.4rem}
+.builder__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem;margin-top:1rem}
+.builder__f{display:flex;flex-direction:column;gap:.3rem;min-width:0}
+.builder__f label{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-soft)}
+.builder__f input,.builder__f select{font-family:var(--body);font-size:.98rem;font-weight:600;color:var(--ink);
+  border:2px solid var(--ink);border-radius:12px;padding:.55rem .7rem;background:#fff;width:100%}
+.builder__f input:focus,.builder__f select:focus{outline:3px solid var(--violet);outline-offset:2px}
+.builder__out{margin-top:1.1rem;background:var(--ink);color:var(--paper);border-radius:16px;padding:1.1rem 1.2rem}
+.builder__out span{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--sun);display:block;margin-bottom:.45rem}
+.builder__sep{margin-top:1rem}
+.builder__out p{font-size:1.08rem;font-weight:700;line-height:1.4}
+.builder__bar{margin-top:.9rem;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.builder__msg{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft)}
+
+/* ---------- цепочка ---------- */
+.chain{margin-top:1.1rem;display:flex;flex-wrap:wrap;align-items:stretch;gap:.6rem}
+.chain__box{flex:1 1 160px;background:rgba(255,255,255,.14);border:2px dashed rgba(255,255,255,.6);
+  border-radius:14px;padding:.8rem .9rem;font-size:.92rem;line-height:1.4}
+.chain__box b{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;
+  text-transform:uppercase;margin-bottom:.3rem}
+.chain__arrow{display:flex;align-items:center;font-family:var(--mono);font-weight:700;font-size:1.2rem;opacity:.85}
+
+/* ---------- примеры было/стало ---------- */
+.ex__bad{display:inline-block;font-family:var(--mono);font-size:.66rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:#fff;background:var(--coral);padding:.2rem .5rem;border-radius:99px;margin-bottom:.5rem}
+.ex__good{display:inline-block;font-family:var(--mono);font-size:.66rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:#fff;background:var(--aqua);padding:.2rem .5rem;border-radius:99px;margin-bottom:.4rem}
+.ex__fix{display:block;font-weight:700;font-size:1rem;margin-top:.15rem}
+.ex__why{display:block;margin-top:.15rem}
+.ex.is-open .ex__ans{border-top:2px dashed var(--line);padding-top:.7rem;margin-top:.75rem}
+
+/* ---------- сурикат ---------- */
+.critter{margin:1.6rem 0 0;display:flex;justify-content:flex-start}
+.critter__svg{display:block;height:104px;width:auto;overflow:visible;
+  filter:drop-shadow(0 8px 12px rgba(20,38,63,.16));animation:breathe 3.2s ease-in-out infinite alternate}
+.critter .fur{fill:#D4A05C}
+.critter .dark{fill:#4A3728}
+.critter .cream{fill:#F2E2C4}
+.critter .shade{fill:#C4924F;opacity:.55}
+.critter .paw{fill:#C9954F;stroke:#A87B3E;stroke-width:1.6}
+.critter .nose{fill:#2A1F18}
+.critter .eye{fill:#171008}
+.critter .glint{fill:#FFFFFF}
+.critter .head{transform-box:view-box;transform-origin:75px 74px;animation:headtilt 7s ease-in-out infinite}
+.critter .ear-l{transform-box:view-box;transform-origin:51px 30px;animation:earL 7s ease-in-out infinite}
+.critter .ear-r{transform-box:view-box;transform-origin:99px 30px;animation:earR 7s ease-in-out infinite}
+.critter .skull{transform-box:view-box;transform-origin:75px 40px;animation:skullturn 7s ease-in-out infinite}
+.critter .face{transform-box:view-box;transform-origin:75px 45px;animation:faceturn 7s ease-in-out infinite}
+.critter .eyes{transform-box:view-box;transform-origin:75px 40px;animation:blink 5.2s ease-in-out infinite}
+.critter .tail{transform-box:view-box;transform-origin:92px 148px;animation:tailsway 2.6s ease-in-out infinite alternate}
+@keyframes breathe{from{transform:translateY(0)}to{transform:translateY(-3px)}}
+@keyframes headtilt{0%,12%{transform:rotate(0)}24%,40%{transform:rotate(-5deg)}
+  52%,62%{transform:rotate(0)}74%,90%{transform:rotate(5deg)}100%{transform:rotate(0)}}
+@keyframes earL{0%,12%{transform:translateX(0) scale(1)}24%,40%{transform:translateX(9px) scale(.55)}
+  52%,62%{transform:translateX(0) scale(1)}74%,90%{transform:translateX(-3px) scale(1.12)}100%{transform:translateX(0) scale(1)}}
+@keyframes earR{0%,12%{transform:translateX(0) scale(1)}24%,40%{transform:translateX(3px) scale(1.12)}
+  52%,62%{transform:translateX(0) scale(1)}74%,90%{transform:translateX(-9px) scale(.55)}100%{transform:translateX(0) scale(1)}}
+@keyframes skullturn{0%,12%{transform:scaleX(1)}24%,40%{transform:scaleX(.93)}
+  52%,62%{transform:scaleX(1)}74%,90%{transform:scaleX(.93)}100%{transform:scaleX(1)}}
+@keyframes faceturn{0%,12%{transform:translateX(0) scaleX(1)}24%,40%{transform:translateX(-13px) scaleX(.76)}
+  52%,62%{transform:translateX(0) scaleX(1)}74%,90%{transform:translateX(13px) scaleX(.76)}100%{transform:translateX(0) scaleX(1)}}
+@keyframes blink{0%,94%{transform:scaleY(1)}96.5%{transform:scaleY(.08)}99%,100%{transform:scaleY(1)}}
+@keyframes tailsway{from{transform:rotate(-5deg)}to{transform:rotate(6deg)}}
+
+/* ---------- адаптив ---------- */
+@media (max-width:820px){
+  .defs--3{grid-template-columns:1fr}
+  .builder__grid{grid-template-columns:1fr}
+  .builder__f input,.builder__f select{font-size:.88rem;padding:.5rem .6rem}
+  .chain{flex-direction:column}
+  .chain__arrow{transform:rotate(90deg);justify-content:center}
+  .tracks,.defs,.ex-grid,.traps{grid-template-columns:1fr}
+  .gt-row{grid-template-columns:1fr;border-bottom:2px solid var(--ink)}
+  .gt-row--head{display:none}
+  .gt-cell{border-right:0;border-bottom:1px solid var(--line)}
+  .gt-cell:last-child{border-bottom:0}
+  .gt-lab{display:block}
+  .step{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar__in">
+    <span><span class="topbar__badge">Выпуск 02</span></span>
+    <span class="topbar__time">Чтение 10 мин · тест 7 вопросов</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ГЕРОЙ -->
+  <header class="hero">
+    <span class="eyebrow">Проектное управление</span>
+    <h1>Цель проекта: <em>что</em> должно быть сделано</h1>
+    <p class="hero__lead">Проект всегда про «что», а не про «как» — этим он и отличается от процесса. Цель фиксирует желаемый итог, а показатели говорят, чем вы измерите, что этот итог получен.</p>
+
+    <div class="cheat">
+      <span>Правило одной строки</span>
+      Цель — это заранее определённый желаемый итог: что должно быть сделано. Показатели достижения — то, чем вы измерите, что итог получен.
+      <span class="cheat__life">Так же и вне работы: не «начать откладывать деньги», а «на счету 150 000 ₽ к 1 июня»; не «выучить английский», а «сдан экзамен на уровень B1 к декабрю». В обоих случаях вторая формулировка называет то, что можно предъявить, а не намерение.</span>
+    </div>
+
+    <div class="tracks">
+      <div class="track track--c">
+        <span class="track__tag">Цель</span>
+        <div class="sheet">
+          <div class="sheet__paper"><i></i><i></i><i></i></div>
+          <div class="sheet__stamp">✓</div>
+        </div>
+        <p class="track__note">Что должно быть сделано</p>
+        <p class="track__sub">Желаемый итог, определённый до начала работ: «обработка обращений полностью переведена в единую систему».</p>
+      </div>
+      <div class="track track--p">
+        <span class="track__tag">Показатели</span>
+        <div class="meter">
+          <div class="meter__track"><div class="meter__fill"></div></div>
+          <div class="meter__nums"><span>было <b>0%</b></span><span>стало <b>100%</b></span></div>
+        </div>
+        <p class="track__note">Чем измерим, что сделано</p>
+        <p class="track__sub">Доля обращений, обрабатываемых в системе: показатель измеряет ровно тот продукт, что назван в цели.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- БАЗА -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">База</span>
+      <h2>Цель, показатели, результат</h2>
+      <p>Их путают чаще всего, а различие простое: цель определяет итог, показатели его измеряют, а по результату проверяют, получилось ли задуманное.</p>
+    </div>
+
+    <div class="defs defs--3">
+      <div class="def def--t">
+        <h3>Цель</h3>
+        <p>Заранее определённый желаемый итог проекта: что должно быть сделано. Итог — это продукт: то, что можно предъявить, а не улучшение вообще. Формулирует заказчик — тот, кто будет пользоваться результатом.</p>
+        <div class="def__formula">«обработка обращений<br>полностью переведена<br>в единую систему»</div>
+      </div>
+      <div class="def def--p">
+        <h3>Показатели достижения</h3>
+        <p>Конкретные измеримые значения, по которым оценивают, достигнута ли цель. Задаются вместе с целью, до начала работ, а не подбираются в конце под то, что получилось.</p>
+        <div class="def__formula">доля обращений в системе:<br>с 0% до 100%</div>
+      </div>
+      <div class="def def--c">
+        <h3>Результат</h3>
+        <p>Итог, который планировали заранее и получили по факту. По нему и видно, достигнута цель или нет: полученное сверяют с запланированным.</p>
+        <div class="def__formula">план: 100%<br>факт: 92% — цель достигнута не полностью</div>
+      </div>
+    </div>
+
+    <div class="split">
+      <span class="eyebrow" style="color:#fff">Цепочка</span>
+      <h3>Откуда берётся цель и куда ведёт</h3>
+      <p>Каждое звено вытекает из предыдущего. Если выпало одно, дальше всё держится на честном слове.</p>
+      <div class="chain">
+        <span class="chain__box"><b>Проблема</b>что не так и что будет, если не делать</span>
+        <span class="chain__arrow">→</span>
+        <span class="chain__box"><b>Цель</b>какой итог должен быть получен</span>
+        <span class="chain__arrow">→</span>
+        <span class="chain__box"><b>Показатели</b>чем измерим достижение</span>
+        <span class="chain__arrow">→</span>
+        <span class="chain__box"><b>Этапы, задачи, вехи</b>как придём к итогу и какие промежуточные результаты получим</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ТАБЛИЦА -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Сравнение</span>
+      <h2>Чем цель отличается от показателей</h2>
+      <p>Это две разные части одной формулировки, и пишутся они по-разному.</p>
+    </div>
+
+    <div class="grid-table">
+      <div class="gt-row gt-row--head">
+        <div class="gt-cell">Признак</div>
+        <div class="gt-cell">Цель</div>
+        <div class="gt-cell">Показатели достижения</div>
+      </div>
+      <div class="gt-row">
+        <div class="gt-cell gt-cell--k">Отвечает на вопрос</div>
+        <div class="gt-cell gt-cell--c"><span class="gt-lab">Цель</span>Что должно быть сделано</div>
+        <div class="gt-cell gt-cell--p"><span class="gt-lab">Показатели</span>Как поймём, что это сделано</div>
+      </div>
+      <div class="gt-row">
+        <div class="gt-cell gt-cell--k">Вид формулировки</div>
+        <div class="gt-cell gt-cell--c"><span class="gt-lab">Цель</span>Продукт в совершенной форме, со сроком</div>
+        <div class="gt-cell gt-cell--p"><span class="gt-lab">Показатели</span>Число, доля, срок: конкретное измеримое значение</div>
+      </div>
+      <div class="gt-row">
+        <div class="gt-cell gt-cell--k">Кто формулирует</div>
+        <div class="gt-cell gt-cell--c"><span class="gt-lab">Цель</span>Заказчик — тот, кто будет пользоваться результатом</div>
+        <div class="gt-cell gt-cell--p"><span class="gt-lab">Показатели</span>Руководитель проекта вместе с заказчиком</div>
+      </div>
+      <div class="gt-row">
+        <div class="gt-cell gt-cell--k">Сколько</div>
+        <div class="gt-cell gt-cell--c"><span class="gt-lab">Цель</span>Обычно одна; если целей несколько, у каждой свои показатели</div>
+        <div class="gt-cell gt-cell--p"><span class="gt-lab">Показатели</span>От одного до трёх на цель, больше — размывает фокус</div>
+      </div>
+      <div class="gt-row">
+        <div class="gt-cell gt-cell--k">Когда фиксируется</div>
+        <div class="gt-cell gt-cell--c"><span class="gt-lab">Цель</span>До начала работ, при запуске проекта</div>
+        <div class="gt-cell gt-cell--p"><span class="gt-lab">Показатели</span>Тогда же, вместе с целью</div>
+      </div>
+      <div class="gt-row">
+        <div class="gt-cell gt-cell--k">Что проверяют при завершении</div>
+        <div class="gt-cell gt-cell--c"><span class="gt-lab">Цель</span>Достигнута ли она в полном объёме</div>
+        <div class="gt-cell gt-cell--p"><span class="gt-lab">Показатели</span>Совпали ли фактические значения с плановыми; если есть расхождения — почему они появились</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ШЕСТЬ ШАГОВ -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Инструкция · 6 шагов</span>
+      <h2>Как превратить пожелание в цель</h2>
+      <p>Цель редко получается с первого раза. Её доводят: сначала записывают как есть, потом проверяют по критериям и переписывают. Пройдите шаги подряд — каждый добавляет недостающую часть.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step__num">1</div>
+        <div>
+          <div class="step__q">Запишите исходное желание своими словами</div>
+          <p class="step__how"><b>Как сделать:</b> не редактируйте на ходу. Зафиксируйте, как звучит запрос: «надо навести порядок с обращениями», «хотим меньше бумаги». Это ещё не цель, но именно с этой фразы начинается работа — и к ней вы вернётесь, когда будете проверять, не потерялся ли смысл.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step__num">2</div>
+        <div>
+          <div class="step__q">Проверьте актуальность</div>
+          <p class="step__how"><b>Как сделать:</b> ответьте, зачем это нужно и что произойдёт, если не делать. Назовите, кто выиграет: подразделение, заявители, команда. Если выигрыша не видно ни у кого — дальше можно не идти, проект не нужен.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step__num">3</div>
+        <div>
+          <div class="step__q">Назовите продукт</div>
+          <p class="step__how"><b>Как сделать:</b> цель — это продукт, а не улучшение вообще. Что появится или изменится так, что это можно предъявить: работающая система, введённый порядок, приведённый к единому формату справочник. Запишите в совершенной форме: «обработка обращений полностью переведена в единую систему». Та же логика и в личных целях: не «копить на отпуск», а «на счету собрано 150 000 ₽»; не «выучить английский», а «сдан экзамен на уровень B1».</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step__num">4</div>
+        <div>
+          <div class="step__q">Добавьте измеримость</div>
+          <p class="step__how"><b>Как сделать:</b> подберите от одного до трёх показателей, которые измеряют именно этот продукт: доля, количество, срок. У каждого укажите значение «до» и целевое. Если измерять нечего, назовите факт, который можно предъявить: приказ подписан, 100% обращений регистрируются в системе.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step__num">5</div>
+        <div>
+          <div class="step__q">Определите срок</div>
+          <p class="step__how"><b>Как сделать:</b> поставьте реалистичную дату с запасом на согласования и отпуска. Срок цели совпадает с датой завершения проекта. Но часть показателей можно посчитать только спустя время после завершения — тогда у такого показателя своя, более поздняя дата замера.</p>
+          <p class="step__ex"><b>Пример.</b> Проект завершается 1 декабря: все обращения переведены в систему — это дата цели. Показатель «доля обращений в системе» виден уже в этот день. А показатель «среднее время обработки» на 1 декабря не посчитать: нужны обращения, которые прошли весь путь в новой системе. Поэтому его замеряют позже — к 1 марта следующего года. В записи две даты: цель — к 1 декабря, замер времени обработки — к 1 марта.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step__num">6</div>
+        <div>
+          <div class="step__q">Проверьте достижимость</div>
+          <p class="step__how"><b>Как сделать:</b> оцените, хватит ли людей, денег и времени и разбивается ли цель на выполнимые этапы. Если не хватает — сужайте продукт, а не растягивайте срок до бесконечности: узкая достигнутая цель полезнее широкой недостигнутой.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ФОРМУЛА -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Формула</span>
+      <h2>Из чего собирается формулировка</h2>
+      <p>Цель и показатели пишутся раздельно. Смешивать их в одном предложении не нужно.</p>
+    </div>
+
+    <div class="formula">
+      <h3>Цель</h3>
+      <div class="formula__line">
+        <span class="formula__chip">Продукт: что должно быть сделано</span><span class="formula__plus">+</span>
+        <span class="formula__chip">В совершенной форме</span><span class="formula__plus">+</span>
+        <span class="formula__chip">К какой дате</span>
+      </div>
+      <div class="formula__ex">
+        <b>Пример</b>
+        Обработка обращений полностью переведена в единую систему к 1 декабря 2026 года.
+      </div>
+      <h3 style="margin-top:1.4rem">Показатели достижения</h3>
+      <div class="formula__line">
+        <span class="formula__chip">Что измеряем</span><span class="formula__plus">+</span>
+        <span class="formula__chip">Значение «до»</span><span class="formula__plus">+</span>
+        <span class="formula__chip">Целевое значение</span>
+      </div>
+      <div class="formula__ex">
+        <b>Пример</b>
+        Доля обращений, обрабатываемых в системе: с 0% до 100%. Среднее время обработки обращения: с 12 до 8 рабочих дней.
+      </div>
+    </div>
+  </section>
+
+  <!-- КОНСТРУКТОР -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Конструктор</span>
+      <h2>Соберите формулировку прямо здесь</h2>
+      <p>Заполните поля — цель и показатель соберутся сами, в том виде, в каком их фиксируют при запуске проекта. Готовый текст можно скопировать.</p>
+    </div>
+
+    <div class="builder">
+      <div class="builder__grid">
+        <div class="builder__f">
+          <label for="b-what">Продукт: что должно быть сделано</label>
+          <input id="b-what" type="text" value="обработка обращений полностью переведена в единую систему" autocomplete="off">
+        </div>
+        <div class="builder__f">
+          <label for="b-date">К какой дате</label>
+          <input id="b-date" type="text" value="1 декабря 2026 года" autocomplete="off">
+        </div>
+        <div class="builder__f">
+          <label for="b-ind">Показатель: что измеряем</label>
+          <input id="b-ind" type="text" value="доля обращений, обрабатываемых в системе" autocomplete="off">
+        </div>
+        <div class="builder__f">
+          <label for="b-from">Значение «до»</label>
+          <input id="b-from" type="text" value="0%" autocomplete="off">
+        </div>
+        <div class="builder__f">
+          <label for="b-to">Целевое значение</label>
+          <input id="b-to" type="text" value="100%" autocomplete="off">
+        </div>
+        <div class="builder__f">
+          <label for="b-who">Заказчик (кто пользуется результатом)</label>
+          <input id="b-who" type="text" value="отдел по работе с обращениями" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="builder__out">
+        <span>Цель проекта</span>
+        <p id="b-goal">—</p>
+        <span class="builder__sep">Показатели достижения цели</span>
+        <p id="b-indout">—</p>
+        <span class="builder__sep">Заказчик</span>
+        <p id="b-whoout">—</p>
+      </div>
+      <div class="builder__bar">
+        <button class="btn" id="b-copy">Скопировать</button>
+        <span class="builder__msg" id="b-msg" aria-live="polite"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ШЕСТЬ ПРОВЕРОК -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Проверка · 6 вопросов</span>
+      <h2>Проверьте формулировку на прочность</h2>
+      <p>Возьмите цель, которую собрали, и ответьте на шесть вопросов — внизу появится рекомендация.</p>
+    </div>
+
+    <div class="steps" id="checks">
+      <div class="step" data-i="0">
+        <div class="step__num">1</div>
+        <div>
+          <div class="step__q">Сформулирована проблема и понятно, что будет, если проект не делать?</div>
+          <p class="step__how"><b>Как проверить:</b> произнесите вслух ответ на вопрос «что произойдёт, если ничего не делать». Если ответить нечего, цель окажется красивой, но никому не нужной.</p>
+          <div class="step__ctrl">
+            <button class="btn btn--yes" data-v="1" aria-pressed="false">Да</button>
+            <button class="btn btn--no" data-v="0" aria-pressed="false">Нет</button>
+            <span class="step__hint">без проблемы нет проекта</span>
+          </div>
+        </div>
+      </div>
+      <div class="step" data-i="1">
+        <div class="step__num">2</div>
+        <div>
+          <div class="step__q">Цель описывает итог — что должно быть сделано, а не как делать?</div>
+          <p class="step__how"><b>Как проверить:</b> в формулировке должен быть назван продукт в совершенной форме: «система запущена», «справочник приведён к единому формату», «новый порядок введён». Одной перемены формы мало: «процесс улучшен к 1 декабря» — та же деятельность в прошедшем времени, предъявить по ней нечего.</p>
+          <div class="step__ctrl">
+            <button class="btn btn--yes" data-v="1" aria-pressed="false">Да</button>
+            <button class="btn btn--no" data-v="0" aria-pressed="false">Нет</button>
+            <span class="step__hint">проект — про «что»</span>
+          </div>
+        </div>
+      </div>
+      <div class="step" data-i="2">
+        <div class="step__num">3</div>
+        <div>
+          <div class="step__q">Если цель будет достигнута, проблема решится?</div>
+          <p class="step__how"><b>Как проверить:</b> представьте, что итог уже получен. Проблема из первого пункта исчезла? Если осталась хотя бы наполовину — цель сформулирована мимо потребности.</p>
+          <div class="step__ctrl">
+            <button class="btn btn--yes" data-v="1" aria-pressed="false">Да</button>
+            <button class="btn btn--no" data-v="0" aria-pressed="false">Нет</button>
+            <span class="step__hint">связь с проблемой</span>
+          </div>
+        </div>
+      </div>
+      <div class="step" data-i="3">
+        <div class="step__num">4</div>
+        <div>
+          <div class="step__q">У цели есть показатели с двумя значениями — исходным и целевым?</div>
+          <p class="step__how"><b>Как проверить:</b> назовите от одного до трёх показателей, у каждого — значение «до» и целевое, и откуда возьмёте данные: выгрузка из системы, журнал, отчёт. Без исходного значения сравнивать будет не с чем, без источника — нечем.</p>
+          <div class="step__ctrl">
+            <button class="btn btn--yes" data-v="1" aria-pressed="false">Да</button>
+            <button class="btn btn--no" data-v="0" aria-pressed="false">Нет</button>
+            <span class="step__hint">два значения и источник</span>
+          </div>
+        </div>
+      </div>
+      <div class="step" data-i="4">
+        <div class="step__num">5</div>
+        <div>
+          <div class="step__q">Назван срок, к которому продукт должен быть получен?</div>
+          <p class="step__how"><b>Как проверить:</b> в формулировке должна стоять конкретная дата, а не «в этом году» или «по готовности». Сверьте её с датой завершения проекта и оцените, реалистична ли она.</p>
+          <div class="step__ctrl">
+            <button class="btn btn--yes" data-v="1" aria-pressed="false">Да</button>
+            <button class="btn btn--no" data-v="0" aria-pressed="false">Нет</button>
+            <span class="step__hint">дата, а не «по готовности»</span>
+          </div>
+        </div>
+      </div>
+      <div class="step" data-i="5">
+        <div class="step__num">6</div>
+        <div>
+          <div class="step__q">Цель разбивается на этапы, и при выполнении всех задач она будет достигнута?</div>
+          <p class="step__how"><b>Как проверить:</b> пройдите план обратным ходом — от последней задачи к цели. Если после выполнения всего списка до итога остаётся шаг, которого в плане нет, добавьте его сейчас, а не в середине проекта.</p>
+          <div class="step__ctrl">
+            <button class="btn btn--yes" data-v="1" aria-pressed="false">Да</button>
+            <button class="btn btn--no" data-v="0" aria-pressed="false">Нет</button>
+            <span class="step__hint">проверка на планировании</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="progressline" id="progressline"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+    <div class="verdict" id="verdict" aria-live="polite">
+      <span class="verdict__score" id="vscore">Ответов: 0 из 6</span>
+      <h3 id="vtitle">Ответьте на все шесть вопросов</h3>
+      <p id="vtext">Рекомендация появится здесь: чем больше «Да», тем ближе формулировка к рабочей цели.</p>
+      <button class="btn" id="vreset" hidden>Пройти заново</button>
+    </div>
+  </section>
+
+  <!-- ПРИМЕРЫ -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Тренировка</span>
+      <h2>Восемь формулировок: сначала найдите ошибку сами</h2>
+      <p>Прочитайте формулировку, решите про себя, что с ней не так, и нажмите на карточку — откроется разбор и переписанный вариант.</p>
+    </div>
+
+    <div class="ex-grid" id="examples">
+      <button class="ex" type="button" aria-expanded="false">
+        <span class="ex__bad">Было</span>
+        <span class="ex__task">Повысить эффективность работы отдела</span>
+        <span class="ex__cta">Нажмите, чтобы проверить →</span>
+        <span class="ex__ans"><span class="ex__why">Не назван итог: непонятно, что должно быть сделано, и оценивать нечем. Спросите, какая именно работа должна стать другой: «эффективность отдела» всегда распадается на конкретные участки, и проект берёт один из них.</span>
+        <span class="ex__good">Стало</span><span class="ex__fix">Цель: единый шаблон введён для всей ежемесячной отчётности к 1 декабря. Показатели: срок подготовки отчёта — с 12 до 8 рабочих дней; доля отчётов по единому шаблону — с 0% до 100%.</span></span>
+      </button>
+
+      <button class="ex" type="button" aria-expanded="false">
+        <span class="ex__bad">Было</span>
+        <span class="ex__task">Улучшать качество данных в справочнике</span>
+        <span class="ex__cta">Нажмите, чтобы проверить →</span>
+        <span class="ex__ans"><span class="ex__why">Незавершённое действие: по слову «улучшать» нельзя понять, в какой момент работа закончена. У проектной цели должна быть точка, в которой она достигнута.</span>
+        <span class="ex__good">Стало</span><span class="ex__fix">Цель: справочник контрагентов полностью приведён к единому формату к 31 марта. Показатель: доля карточек, оформленных по единому формату, — с 62% до 100%.</span></span>
+      </button>
+
+      <button class="ex" type="button" aria-expanded="false">
+        <span class="ex__bad">Было</span>
+        <span class="ex__task">Разработать регламент, обучить сотрудников, запустить пилот</span>
+        <span class="ex__cta">Нажмите, чтобы проверить →</span>
+        <span class="ex__ans"><span class="ex__why">Это этапы и задачи, а не цель. Такую формулировку невозможно не выполнить: список закрыт, галочки стоят, а итога нет.</span>
+        <span class="ex__good">Стало</span><span class="ex__fix">Цель: единые правила приёма введены в действие для всех входящих документов к 30 июня. Показатель: доля документов, принятых по новым правилам, — с 0% до 100%. Перечисленное — этапы плана, ведущие к этому итогу.</span></span>
+      </button>
+
+      <button class="ex" type="button" aria-expanded="false">
+        <span class="ex__bad">Было</span>
+        <span class="ex__task">Внедрить новую информационную систему</span>
+        <span class="ex__cta">Нажмите, чтобы проверить →</span>
+        <span class="ex__ans"><span class="ex__why">Названо средство. Систему можно внедрить и не изменить работу: люди продолжат вести прежние таблицы. Итог описывает работу, а не инструмент.</span>
+        <span class="ex__good">Стало</span><span class="ex__fix">Цель: обработка обращений полностью переведена в единую систему к 30 сентября. Показатели: доля обращений, обрабатываемых в системе, — с 0% до 100%; среднее время сбора отчётности — с 5 рабочих дней до 1.</span></span>
+      </button>
+
+      <button class="ex" type="button" aria-expanded="false">
+        <span class="ex__bad">Было</span>
+        <span class="ex__task">Сократить сроки согласования договоров</span>
+        <span class="ex__cta">Нажмите, чтобы проверить →</span>
+        <span class="ex__ans"><span class="ex__why">Направление верное, но нет ни срока, ни значений. Сократить на день — тоже сократить, и формально всё выполнено.</span>
+        <span class="ex__good">Стало</span><span class="ex__fix">Цель: новый порядок согласования запущен для всех договоров к 1 ноября. Показатели: срок согласования — с 20 до 12 рабочих дней; доля договоров по новому порядку — с 0% до 100%.</span></span>
+      </button>
+
+      <button class="ex" type="button" aria-expanded="false">
+        <span class="ex__bad">Было</span>
+        <span class="ex__task">Закупить 30 ноутбуков для выездных сотрудников</span>
+        <span class="ex__cta">Нажмите, чтобы проверить →</span>
+        <span class="ex__ans"><span class="ex__why">Это задача: понятно, как делать, результат измеримый, выполняется однократно. Проектной цели здесь нет — есть покупка.</span>
+        <span class="ex__good">Стало</span><span class="ex__fix">Цель: оформление документов перенесено на место выезда к 1 сентября. Показатель: доля документов, оформленных на выезде, — с 0% до 90%. Закупка становится одной из задач.</span></span>
+      </button>
+
+      <button class="ex" type="button" aria-expanded="false">
+        <span class="ex__bad">Было</span>
+        <span class="ex__task">Стать самым современным подразделением</span>
+        <span class="ex__cta">Нажмите, чтобы проверить →</span>
+        <span class="ex__ans"><span class="ex__why">Лозунг: нет итога, который можно предъявить, и неизвестно, кто определяет современность. Для презентации годится, для работы — нет.</span>
+        <span class="ex__good">Стало</span><span class="ex__fix">Цель: три самых массовых процесса переведены в электронный вид к 31 декабря. Показатели: количество переведённых процессов — с 0 до 3; доля обращений по ним, поданных электронно, — с 0% до 70%.</span></span>
+      </button>
+
+      <button class="ex" type="button" aria-expanded="false">
+        <span class="ex__bad">Было</span>
+        <span class="ex__task">Сделать так, чтобы руководство было довольно результатом</span>
+        <span class="ex__cta">Нажмите, чтобы проверить →</span>
+        <span class="ex__ans"><span class="ex__why">Цель подменена ожиданием. Настроение другого человека не итог и не показатель. Спросите, чем именно недовольны: за общим недовольством почти всегда стоит конкретная претензия, её и берут в работу.</span>
+        <span class="ex__good">Стало</span><span class="ex__fix">Цель: контрольный лист внедрён для проверки всех документов к 15 декабря. Показатели: доля документов, проверенных по контрольному листу, — с 0% до 100%; доля документов, возвращённых на доработку, — с 40% до 15%.</span></span>
+      </button>
+
+    </div>
+  </section>
+
+  <!-- ЛОВУШКИ -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Ловушки</span>
+      <h2>Четыре ошибки, из-за которых цель перестаёт работать</h2>
+    </div>
+
+    <div class="traps">
+      <div class="trap">
+        <h3>Цель описывает, как работать, а не что должно быть сделано</h3>
+        <p>«Улучшать», «повышать», «обеспечивать» — глаголы продолжающейся деятельности. По такой цели нельзя понять, когда проект завершён: продукта, который предъявят в конце, в ней нет. Ровно то же с личными планами: «начать откладывать» нельзя ни выполнить, ни проверить, а «на счету 150 000 ₽» — можно.</p>
+        <p class="trap__fix"><b>Что делать:</b> назовите продукт и поставьте срок. Сменить форму глагола недостаточно: «процесс улучшен к 1 декабря» выглядит как цель, но предъявить по ней по-прежнему нечего.</p>
+      </div>
+      <div class="trap">
+        <h3>Цель есть, показателей нет</h3>
+        <p>Итог назван, но оценивать его нечем. При завершении начинается спор, считать ли цель достигнутой, и каждый остаётся при своём мнении.</p>
+        <p class="trap__fix"><b>Что делать:</b> задайте от одного до трёх показателей со значением «до» и целевым — до старта, а не в конце.</p>
+      </div>
+      <div class="trap">
+        <h3>Цель — перечень задач</h3>
+        <p>Через запятую перечислено всё, что команда собирается делать. Задачи закрываются, отчёт сдаётся, а проблема, ради которой проект открывали, остаётся на месте.</p>
+        <p class="trap__fix"><b>Что делать:</b> оставьте одно предложение об итоге, а перечень перенесите в этапы и задачи.</p>
+      </div>
+      <div class="trap">
+        <h3>Цель формулирует исполнитель, а не заказчик</h3>
+        <p>Тогда она получается про инструмент: внедрить, закупить, настроить. Заказчик — тот, кто будет пользоваться результатом, — видит свою потребность иначе.</p>
+        <p class="trap__fix"><b>Что делать:</b> попросите заказчика сформулировать итог своими словами и только потом приводите формулировку в рабочий вид.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ТЕСТ -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Мини-тест</span>
+      <h2>Семь вопросов на понимание</h2>
+      <p>Без подсказок. После каждого ответа появится объяснение.</p>
+    </div>
+
+    <div class="quiz">
+      <div id="quizBody">
+        <div class="quiz__top">
+          <span class="quiz__count" id="qcount">Вопрос 1 из 7</span>
+          <div class="quiz__dots" id="qdots"></div>
+        </div>
+        <div class="quiz__q" id="qtext"></div>
+        <div class="quiz__opts" id="qopts"></div>
+        <div class="quiz__fb" id="qfb" aria-live="polite"></div>
+        <div class="quiz__nav"><button class="btn" id="qnext" hidden>Дальше →</button></div>
+      </div>
+
+      <div class="quiz__result" id="quizResult">
+        <span class="result__label">Результат</span>
+        <div class="result__score" id="rscore">0 / 7</div>
+        <p class="result__msg" id="rmsg"></p>
+        <div class="quiz__nav"><button class="btn" id="qrestart">Пройти заново</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ФИНАЛ -->
+  <div class="outro">
+    <span class="eyebrow" style="color:var(--sun)">Заберите с собой</span>
+    <h2>Одно правило вместо всей памятки</h2>
+    <p class="outro__rule">Сначала опишите продукт — что должно быть сделано.<br>Потом добавьте показатели — чем измерите, что это сделано.</p>
+    <p style="margin-top:1.2rem;opacity:.9">И помните: цель формулирует заказчик, а показатели согласуют до старта. После завершения договариваться поздно.</p>
+    <p class="outro__next">Выпуск 03 — веха: как выделить контрольные точки и отслеживать продвижение к цели</p>
+  </div>
+
+  <div class="critter" aria-hidden="true">
+    <svg class="critter__svg" viewBox="0 0 150 212" width="150" height="212" focusable="false">
+      <g class="tail">
+        <path class="fur" d="M94,140 C116,150 130,172 132,198 C128,201 123,200 120,197 C117,174 106,158 90,150 Z"/>
+        <path class="dark" d="M124,184 C129,189 132,194 132,198 C128,201 123,200 120,197 C120,193 122,188 124,184 Z"/>
+      </g>
+      <path class="fur" d="M60,176 C55,186 54,194 56,199 C58,201 64,201 66,199 C67,192 66,184 66,176 Z"/>
+      <path class="fur" d="M90,176 C95,186 96,194 94,199 C92,201 86,201 84,199 C83,192 84,184 84,176 Z"/>
+      <path class="cream" d="M52,198 C52,202 55,204 60,204 L68,204 C70,204 70,199 67,198 Z"/>
+      <path class="cream" d="M98,198 C98,202 95,204 90,204 L82,204 C80,204 80,199 83,198 Z"/>
+      <path d="M57,204 L57,200 M62,204 L62,199 M93,204 L93,200 M88,204 L88,199"
+            style="stroke:#C9954F;stroke-width:1.4;stroke-linecap:round"/>
+      <path class="fur" d="M75,74 C58,76 52,96 51,122 C50,150 56,174 65,186 L85,186 C94,174 100,150 99,122 C98,96 92,76 75,74 Z"/>
+      <path class="shade" d="M75,74 C92,76 98,96 99,122 C100,150 94,174 85,186 L78,186 C88,172 94,148 93,122 C92,98 86,80 75,74 Z"/>
+      <ellipse class="cream" cx="75" cy="140" rx="15" ry="34"/>
+      <path class="paw" d="M71,116 C63,120 60,131 64,140 C69,143 74,140 75,133 C76,125 75,118 71,116 Z"/>
+      <path class="paw" d="M79,116 C87,120 90,131 86,140 C81,143 76,140 75,133 C74,125 75,118 79,116 Z"/>
+      <g class="head">
+        <g class="ears">
+          <g class="ear-l"><ellipse class="dark" cx="51" cy="30" rx="10" ry="8" transform="rotate(-20 51 30)"/></g>
+          <g class="ear-r"><ellipse class="dark" cx="99" cy="30" rx="10" ry="8" transform="rotate(20 99 30)"/></g>
+        </g>
+        <g class="skull">
+          <path class="fur" d="M75,10 C57,10 49,25 49,42 C49,60 60,72 75,72 C90,72 101,60 101,42 C101,25 93,10 75,10 Z"/>
+        </g>
+        <g class="face">
+          <ellipse class="dark" cx="62" cy="40" rx="12" ry="9" transform="rotate(-12 62 40)"/>
+          <ellipse class="dark" cx="88" cy="40" rx="12" ry="9" transform="rotate(12 88 40)"/>
+          <g class="eyes">
+            <circle class="eye" cx="62" cy="40" r="4.6"/>
+            <circle class="eye" cx="88" cy="40" r="4.6"/>
+            <circle class="glint" cx="63.8" cy="38.2" r="1.7"/>
+            <circle class="glint" cx="89.8" cy="38.2" r="1.7"/>
+          </g>
+          <ellipse class="cream" cx="75" cy="58" rx="12" ry="10"/>
+          <path class="nose" d="M75,51 C78,51 80,53 80,55 C80,58 77,60 75,60 C73,60 70,58 70,55 C70,53 72,51 75,51 Z"/>
+          <path d="M75,60 L75,64 M75,64 C73,67 70,66 69,64 M75,64 C77,67 80,66 81,64"
+                style="stroke:#2A1F18;stroke-width:1.5;fill:none;stroke-linecap:round"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+</div>
+
+<script>
+
+(function(){
+  "use strict";
+
+  /* ---------- шесть проверок ---------- */
+  var answers = [null,null,null,null,null,null];
+  var checksEl = document.getElementById('checks');
+  var lineEl = document.getElementById('progressline');
+  var vscore = document.getElementById('vscore');
+  var vtitle = document.getElementById('vtitle');
+  var vtext  = document.getElementById('vtext');
+  var vreset = document.getElementById('vreset');
+
+  checksEl.addEventListener('click', function(e){
+    var b = e.target.closest('.btn');
+    if(!b) return;
+    var step = b.closest('.step');
+    var i = +step.dataset.i;
+    var v = +b.dataset.v;
+    answers[i] = v;
+    step.querySelectorAll('.btn').forEach(function(x){ x.classList.remove('is-on'); x.setAttribute('aria-pressed','false'); });
+    b.classList.add('is-on'); b.setAttribute('aria-pressed','true');
+    step.classList.add('is-done');
+    step.classList.toggle('is-yes', v === 1);
+    step.classList.toggle('is-no', v === 0);
+    render();
+  });
+
+  vreset.addEventListener('click', function(){
+    answers = [null,null,null,null,null,null];
+    checksEl.querySelectorAll('.step').forEach(function(s){
+      s.classList.remove('is-done','is-yes','is-no');
+      s.querySelectorAll('.btn').forEach(function(x){ x.classList.remove('is-on'); x.setAttribute('aria-pressed','false'); });
+    });
+    render();
+    checksEl.scrollIntoView({block:'start'});
+  });
+
+  function render(){
+    var done = answers.filter(function(a){ return a !== null; }).length;
+    var yes  = answers.filter(function(a){ return a === 1; }).length;
+
+    Array.prototype.forEach.call(lineEl.children, function(el, idx){
+      el.classList.toggle('on', answers[idx] !== null);
+    });
+
+    vscore.textContent = 'Ответов: ' + done + ' из 6 · «Да»: ' + yes;
+    vreset.hidden = done === 0;
+
+    if(done < 6){
+      vtitle.textContent = 'Ответьте на все шесть вопросов';
+      vtext.textContent = 'Рекомендация появится здесь: чем больше «Да», тем ближе формулировка к рабочей цели.';
+      return;
+    }
+    if(yes === 6){
+      vtitle.textContent = 'Цель готова';
+      vtext.textContent = 'Фиксируйте формулировку при запуске проекта: итог — как цель, значения — как показатели её достижения.';
+    } else if(yes >= 4){
+      vtitle.textContent = 'Основа есть, но принимать рано';
+      vtext.textContent = 'Вернитесь к пунктам, где вы ответили «Нет», и допишите недостающее: продукт в совершенной форме, показатель, значение «до» или дату. Остальное менять не нужно.';
+    } else {
+      vtitle.textContent = 'Это пока намерение, а не цель';
+      vtext.textContent = 'Формулировку придётся выводить заново: пройдите шесть шагов и соберите цель в конструкторе выше.';
+    }
+  }
+  render();
+
+  /* ---------- карточки с примерами ---------- */
+  document.getElementById('examples').addEventListener('click', function(e){
+    var card = e.target.closest('.ex');
+    if(card){ var open = card.classList.toggle('is-open'); card.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+  });
+
+  /* ---------- конструктор формулировки ---------- */
+  var bWhat = document.getElementById('b-what');
+  var bDate = document.getElementById('b-date');
+  var bInd  = document.getElementById('b-ind');
+  var bFrom = document.getElementById('b-from');
+  var bTo   = document.getElementById('b-to');
+  var bWho  = document.getElementById('b-who');
+  var bGoal = document.getElementById('b-goal');
+  var bOut  = document.getElementById('b-indout');
+  var bWhoOut = document.getElementById('b-whoout');
+  var bCopy = document.getElementById('b-copy');
+  var bMsg  = document.getElementById('b-msg');
+
+  function clean(t){ return t.trim().replace(/[\s.,;:!]+$/, ''); }
+  function cap(t){ return t ? t.charAt(0).toUpperCase() + t.slice(1) : t; }
+
+  function build(){
+    var what = clean(bWhat.value);
+    var date = clean(bDate.value).replace(/^(к|до)\s+/i, '');
+    var ind  = clean(bInd.value);
+    var from = clean(bFrom.value).replace(/^с\s+/i, '');
+    var to   = clean(bTo.value).replace(/^до\s+/i, '');
+    var who  = clean(bWho.value);
+
+    var goal = what ? cap(what) : '';
+    if(goal && date) goal += ' к ' + date;
+    bGoal.textContent = goal ? goal + '.' : 'Опишите итог — формулировка соберётся здесь.';
+
+    var line = '';
+    if(ind){
+      line = cap(ind);
+      if(from && to) line += ': с ' + from + ' до ' + to;
+      else if(to) line += ': ' + to;
+      else if(from) line += ': ' + from;
+      line += '.';
+    }
+    
+    bOut.textContent = line || 'Добавьте показатель, по которому оцените результат.';
+    bWhoOut.textContent = who ? cap(who) + '.' : 'Укажите, кто будет пользоваться результатом.';
+  }
+
+  [bWhat,bDate,bInd,bFrom,bTo,bWho].forEach(function(el){
+    el.addEventListener('input', build);
+    el.addEventListener('change', build);
+  });
+  build();
+
+  bCopy.addEventListener('click', function(){
+    var NL = String.fromCharCode(10);
+    var text = 'Цель проекта: ' + bGoal.textContent + NL + 'Показатели достижения цели: ' + bOut.textContent + NL + 'Заказчик: ' + bWhoOut.textContent;
+    function done(){ bMsg.textContent = 'Скопировано'; setTimeout(function(){ bMsg.textContent=''; }, 2000); }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else { fallback(); }
+    function fallback(){
+      var ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); }
+      catch(err){ bMsg.textContent = 'Выделите текст и скопируйте вручную'; }
+      document.body.removeChild(ta);
+    }
+  });
+
+  /* ---------- тест ---------- */
+  var QUESTIONS = [
+    {
+      q:'На какой вопрос отвечает цель проекта?',
+      o:['Как мы будем это делать',
+         'Кто будет над этим работать',
+         'Что должно быть сделано',
+         'Сколько это будет стоить'],
+      a:2,
+      e:'Проект концентрируется на вопросе «что»: цель определяет желаемый итог. Вопрос «как» — это про процесс, там важна повторяемая последовательность действий.',
+      x:['«Как» — вопрос процесса. В проекте способ достижения появляется в плане, а не в цели.',
+         'Состав участников определяют отдельно, после того как итог назван.',
+         '',
+         'Стоимость оценивают на инициации, но целью она не является.']
+    },
+    {
+      q:'Зачем цели нужны показатели достижения?',
+      o:['Чтобы было чем оценить, достигнут ли заявленный итог',
+         'Чтобы обосновать бюджет проекта',
+         'Чтобы руководителю проекта было что показать на совещании',
+         'Чтобы ускорить выполнение задач'],
+      a:0,
+      e:'Показатели — это то, чем измеряют достижение цели. Без них при завершении нечего сверять: полученный результат не с чем сравнить.',
+      x:['',
+         'Бюджет обосновывают объёмом работ. Показатели — про итог, а не про деньги.',
+         'Отчётность — следствие. Смысл показателей в том, что они делают итог проверяемым.',
+         'На скорость они не влияют: это измерительный инструмент, а не ускоритель.']
+    },
+    {
+      q:'Кто формулирует цель проекта?',
+      o:['Руководитель проекта, который отвечает за результат',
+         'Куратор проекта, который принимает решения',
+         'Команда проекта на организационной встрече',
+         'Заказчик — тот, кто пользуется результатом'],
+      a:3,
+      e:'Цель исходит из потребности заказчика. Руководитель проекта помогает довести её до конкретного вида и подобрать показатели, но потребность формулирует не он.',
+      x:['Руководитель отвечает за достижение цели, а не за её появление. Иначе цель получится про инструмент.',
+         'Куратор принимает решения по проекту и снимает блокировки, но потребность приходит от заказчика.',
+         'Команда планирует путь к цели. Сам итог задаётся раньше, на инициации.',
+         '']
+    },
+    {
+      q:'Какая из формулировок — цель проекта?',
+      o:['Обеспечивать своевременную обработку обращений',
+         'Справочник приведён к единому формату к 31 марта',
+         'Разработать регламент и обучить сотрудников работе по нему',
+         'Закупить программное обеспечение для ведения справочника'],
+      a:1,
+      e:'Это продукт в совершенной форме, с датой: понятно, что должно быть сделано и когда. Остальные формулировки описывают деятельность, задачи или покупку.',
+      x:['«Обеспечивать» описывает деятельность, а не продукт: неясно, что будет предъявлено в конце. Это признак процесса.',
+         '',
+         'Это задачи. Их выполнение само по себе не говорит, что итог получен.',
+         'Это задача с измеримым результатом: понятно, как делать, и делается однократно.']
+    },
+    {
+      q:'Зачем проверять цель вопросом «если она будет достигнута, проблема решится?»',
+      o:['Чтобы заранее оценить, реалистичны ли сроки проекта',
+         'Чтобы понять, хватит ли выделенного бюджета',
+         'Чтобы убедиться, что цель решает нужную проблему',
+         'Чтобы подобрать в команду нужных специалистов'],
+      a:2,
+      e:'Цель может быть конкретной и измеримой — и при этом решать не ту проблему. Такой разрыв дешевле обнаружить до начала работ, чем при завершении.',
+      x:['Сроки проверяют отдельно, при оценке объёма работ.',
+         'Бюджет оценивают, когда понятен объём. К связи цели с проблемой он отношения не имеет.',
+         '',
+         'Состав команды определяют при планировании, когда итог уже описан.']
+    },
+    {
+      q:'Почему «Улучшать качество данных» не годится как цель проекта?',
+      o:['Описывает деятельность, а не продукт',
+         'Формулировка слишком короткая для цели',
+         'В ней не назван ответственный за результат',
+         'Качество данных вообще нельзя измерить'],
+      a:0,
+      e:'По слову «улучшать» нельзя понять, в какой момент работа закончена и что будет предъявлено. Нужен продукт: «справочник контрагентов приведён к единому формату».',
+      x:['',
+         'Длина ни при чём: короткая формулировка может быть отличной целью, если описывает продукт.',
+         'Ответственных назначают отдельно, когда итог уже описан.',
+         'Измерить можно — например, долей карточек, оформленных по единому формату. Проблема в том, что не назван продукт.']
+    },
+    {
+      q:'Когда задают показатели достижения цели?',
+      o:['При завершении проекта, когда виден фактический результат',
+         'В середине проекта, когда станет понятнее',
+         'Только если этого потребует заказчик',
+         'До начала работ, вместе с целью'],
+      a:3,
+      e:'Показатели задают там же, где и цель, — до старта. Подобранные в конце, они всегда описывают то, что получилось, и проверкой это уже не назвать.',
+      x:['Тогда они подстроятся под фактический результат, и смысл проверки исчезнет.',
+         'К середине проекта часть работ уже сделана, и замерить исходное значение будет невозможно.',
+         'Показатели нужны команде не меньше, чем заказчику: без них непонятно, к чему идти.',
+         '']
+    }
+  ];
+
+  var qi = 0, score = 0, locked = false;
+  var qcount = document.getElementById('qcount');
+  var qdots  = document.getElementById('qdots');
+  var qtext  = document.getElementById('qtext');
+  var qopts  = document.getElementById('qopts');
+  var qfb    = document.getElementById('qfb');
+  var qnext  = document.getElementById('qnext');
+  var quizBody = document.getElementById('quizBody');
+  var quizResult = document.getElementById('quizResult');
+  var LETTERS = ['А','Б','В','Г','Д'];
+
+  function buildDots(){
+    qdots.innerHTML = '';
+    for(var i=0;i<QUESTIONS.length;i++) qdots.appendChild(document.createElement('i'));
+  }
+
+  function drawQuestion(){
+    locked = false;
+    var item = QUESTIONS[qi];
+    qcount.textContent = 'Вопрос ' + (qi+1) + ' из ' + QUESTIONS.length;
+    qtext.textContent = item.q;
+    qfb.className = 'quiz__fb';
+    qfb.innerHTML = '';
+    qnext.hidden = true;
+    qopts.innerHTML = '';
+
+    item.o.forEach(function(text, idx){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'opt';
+      b.innerHTML = '<span class="opt__k">' + LETTERS[idx] + '</span><span>' + text + '</span>';
+      b.addEventListener('click', function(){ choose(idx, b); });
+      qopts.appendChild(b);
+    });
+  }
+
+  function choose(idx, btn){
+    if(locked) return;
+    locked = true;
+    var item = QUESTIONS[qi];
+    var right = idx === item.a;
+    if(right) score++;
+
+    Array.prototype.forEach.call(qopts.children, function(el, i){
+      el.disabled = true;
+      if(i === item.a) el.classList.add('correct');
+      if(i === idx && !right) el.classList.add('wrong');
+    });
+
+    qdots.children[qi].classList.add(right ? 'ok' : 'bad');
+    var why = right ? item.e : ((item.x && item.x[idx]) ? item.x[idx] : item.e);
+    qfb.className = 'quiz__fb show';
+    qfb.innerHTML = '<b>' + (right ? 'Верно' : 'Мимо') + '</b>' + why;
+    qnext.hidden = false;
+    qnext.textContent = (qi === QUESTIONS.length - 1) ? 'Показать результат →' : 'Дальше →';
+    qnext.focus();
+  }
+
+  qnext.addEventListener('click', function(){
+    if(qi === QUESTIONS.length - 1){ showResult(); return; }
+    qi++;
+    drawQuestion();
+  });
+
+  function showResult(){
+    quizBody.style.display = 'none';
+    quizResult.classList.add('show');
+    document.getElementById('rscore').textContent = score + ' / ' + QUESTIONS.length;
+    var msg;
+    if(score === 7) msg = 'Цель и показатели вы различаете уверенно. Проверьте этим взглядом формулировки в действующих проектах — находки бывают неожиданные.';
+    else if(score >= 5) msg = 'Основное усвоено. Перечитайте блок «Ловушки»: там собраны случаи, из-за которых цель перестаёт работать.';
+    else if(score >= 3) msg = 'Половина есть. Вернитесь к шести шагам и выведите цель для одного своего проекта — так закрепится быстрее.';
+    else msg = 'Начните заново с блока «База» и таблицы. Ключ простой: цель определяет итог, показатели его измеряют.';
+    document.getElementById('rmsg').textContent = msg;
+  }
+
+  document.getElementById('qrestart').addEventListener('click', function(){
+    qi = 0; score = 0;
+    quizResult.classList.remove('show');
+    quizBody.style.display = '';
+    buildDots();
+    drawQuestion();
+    quizBody.scrollIntoView({block:'center'});
+  });
+
+  buildDots();
+  drawQuestion();
+})();
+</script>
+</body>
+</html>
